@@ -22,6 +22,7 @@ module.exports = {
   daisyui: {
     themes: ["coffee", "cupcake"],
     darkTheme: "coffee",
+    logs: false,
   },
   plugins: [
     require("daisyui"),

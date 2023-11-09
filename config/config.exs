@@ -8,11 +8,13 @@
 import Config
 
 config :michaelward_uk,
-  ecto_repos: [MichaelwardUk.Repo]
+  ecto_repos: [MichaelwardUk.Repo],
+  generators: [timestamp_type: :utc_datetime]
 
 # Configures the endpoint
 config :michaelward_uk, MichaelwardUkWeb.Endpoint,
   url: [host: "localhost"],
+  adapter: Phoenix.Endpoint.Cowboy2Adapter,
   render_errors: [
     formats: [html: MichaelwardUkWeb.ErrorHTML, json: MichaelwardUkWeb.ErrorJSON],
     layout: false
@@ -41,7 +43,7 @@ config :esbuild,
 
 # Configure tailwind (the version is required)
 config :tailwind,
-  version: "3.2.7",
+  version: "3.3.5",
   default: [
     args: ~w(
       --config=tailwind.config.js

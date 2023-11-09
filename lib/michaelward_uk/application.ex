@@ -8,18 +8,19 @@ defmodule MichaelwardUk.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      # Start the Telemetry supervisor
       MichaelwardUkWeb.Telemetry,
-      # Start the Ecto repository
       MichaelwardUk.Repo,
+      {DNSCluster, query: Application.get_env(:michaelward_uk, :dns_cluster_query) || :ignore},
       # Start the PubSub system
       {Phoenix.PubSub, name: MichaelwardUk.PubSub},
+      # Start the Finch HTTP client for sending emails
       # Start Finch
       {Finch, name: MichaelwardUk.Finch},
-      # Start the Endpoint (http/https)
-      MichaelwardUkWeb.Endpoint
       # Start a worker by calling: MichaelwardUk.Worker.start_link(arg)
-      # {MichaelwardUk.Worker, arg}
+      # Start the Endpoint (http/https)
+      # {MichaelwardUk.Worker, arg},
+      # Start to serve requests, typically the last entry
+      MichaelwardUkWeb.Endpoint
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
